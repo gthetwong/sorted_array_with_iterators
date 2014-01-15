@@ -88,14 +88,9 @@ class SortedArray
   def inject acc=nil, &block
      i = 0
     while i < @internal_arr.size
-     temp = yield @internal_arr[i]
-
+     acc = yield acc,@internal_arr[i]
       i += 1 
     end
-  
-
-
-
-    # raise NotImplementedError.new("You need to implement the inject method!")
+    return acc  # raise NotImplementedError.new("You need to implement the inject method!")
   end
 end

@@ -80,9 +80,9 @@ describe SortedArray do
   describe :inject do
      specify do 
       expect do |b| 
-        block_with_two_args = Proc.new {|acc,el| return true}
-        sorted_array.send(method, block_with_two_args)
-      end.to yield_successive_args(2,3,4,7,9)#should yield to [0,2],[2,3],[5,4],[9,7],[16,9] 
+        block_with_two_args = Proc.new {|acc,el| acc + el}
+        sorted_array.send(:+, block_with_two_args)
+      end.to yield_successive_args([0,2],[2,3],[5,4],[9,7],[16,9])
     end
 
     it "does not currently have any examples for it" do
