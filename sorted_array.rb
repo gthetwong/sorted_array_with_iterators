@@ -69,7 +69,7 @@ class SortedArray
     new_arr = []
     while i < @internal_arr.size
      value = yield @internal_arr[i]
-    if yield @internal_arr == true 
+    if yield @internal_arr[i] == true 
       return value
     else
       return nil
