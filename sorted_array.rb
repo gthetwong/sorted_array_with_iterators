@@ -38,22 +38,64 @@ class SortedArray
   end
 
   def each &block
-    raise NotImplementedError.new("You need to implement the each method!")
+    #loop over all elements in @internal_arr
+    #yield to each element in that array
+    #keep track of our index
+    i = 0
+    while i < @internal_arr.size
+      yield @internal_arr[i]
+      i += 1 
+    end
+    @internal_arr
+    #raise NotImplementedError.new("You need to implement the each method!")
   end
 
   def map &block
-    raise NotImplementedError.new("You need to implement the map method!")
+    new_arr=[]
+    self.each {|x| new_arr << (yield x) }
+    new_arr
+    # raise NotImplementedError.new("You need to implement the map method!")
   end
 
   def map! &block
-    raise NotImplementedError.new("You need to implement the map! method!")
+    new_arr= []
+    self.each {|x| new_arr << (yield x) }
+    @internal_arr = new_arr
+    # raise NotImplementedError.new("You need to implement the map! method!")
   end
 
-  def find value
-    raise NotImplementedError.new("You need to implement the find method!")
+  def find &block
+    i = 0
+    new_arr = []
+    while i < @internal_arr.size
+     value = yield @internal_arr[i]
+    if yield @internal_arr == true 
+      return value
+    else
+      return nil
+    end
+    i+= 1
+    end
   end
-
+    # take a block 
+    # array 2,3,4,7,9
+    # find takes a block that tests for equality
+    # return the value 3
+    # block values at true when it hits that value
+    # compares successive elements against the value that you want to compare
+    # and then stops yielding
+    # raise NotImplementedError.new("You need to implement the find method!")
   def inject acc=nil, &block
-    raise NotImplementedError.new("You need to implement the inject method!")
+     i = 0
+    while i < @internal_arr.size
+     temp = yield @internal_arr[i]
+
+      i += 1 
+    end
+  
+
+
+
+    # raise NotImplementedError.new("You need to implement the inject method!")
   end
 end

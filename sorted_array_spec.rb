@@ -1,6 +1,7 @@
 require 'rspec'
 require './sorted_array.rb'
 
+#shared example is a method in rspec used for testing functionality
 shared_examples "yield to all elements in sorted array" do |method|
     specify do 
       expect do |b| 
@@ -28,13 +29,21 @@ describe SortedArray do
       describe :map do
         it 'the original array should not be changed' do
           original_array = sorted_array.internal_arr
-          expect { sorted_array.map {|el| el } }.to_not change { original_array }
+          expect { sorted_array.map {|el| el} }.to_not change { original_array }
         end
 
-        it_should_behave_like "yield to all elements in sorted array", :map
+        it_should_behave_like "yield to all elements in sorted array", :map do
+        shared_examples "yield to all elements in sorted array" do |method|
+    specify do 
+      expect do |b| 
+        sorted_array.send(method, &b) 
+      end.to yield_successive_args(2,3,4,7,9) 
+    end
+end
+end 
 
         it 'creates a new array containing the values returned by the block' do
-          pending "fill this spec in with a meaningful example"
+            
         end
       end
     end
@@ -55,15 +64,22 @@ describe SortedArray do
   end
 
   describe :find do
-    it_should_behave_like "yield to all elements in sorted array", :find
+    # it_should_behave_like "yield to all elements in sorted array", :find
 
-    it "does not currently have any examples for it" do
-      pending "define some examples by looking up http://www.ruby-doc.org/core-2.1.0/Enumerable.html#method-i-find"
+    it "should stop when the block value is true" do
+     # sorted_array.find {|x|x=3}.should eq true && i==@internal_arr.index(internal_arr[i])
+
+      # pending "define some examples by looking up http://www.ruby-doc.org/core-2.1.0/Enumerable.html#method-i-find"
     end
   end
 
   describe :inject do
-    it_should_behave_like "yield to all elements in sorted array", :inject
+     specify do 
+      expect do |b| 
+        block_with_two_args = Proc.new {|acc,el| return true}
+        sorted_array.send(method, block_with_two_args)
+      end.to yield_successive_args(2,3,4,7,9)#should yield to [0,2],[2,3],[5,4],[9,7],[16,9] 
+    end
 
     it "does not currently have any examples for it" do
       pending "define some examples by looking up http://www.ruby-doc.org/core-2.1.0/Enumerable.html#method-i-inject"
